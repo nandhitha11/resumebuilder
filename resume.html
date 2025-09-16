@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Resume Builder — Demo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ===== Preloader ===== -->
+<div id="loader">
+  <div class="spinner">
+    <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+  </div>
+  <div class="loading-text">Loading Resume Builder...</div>
+  <div class="messages">
+    <span class="active">Preparing templates...</span>
+    <span>Loading your tools...</span>
+    <span>Almost ready...</span>
+  </div>
+</div>
+
+<!-- ===== Step A: Experience selection ===== -->
+<section id="step-experience" class="page hidden">
+  <header class="topbar"><div class="logo">LiveCareer</div><a class="contact">Contact Us</a></header>
+  <main class="centered">
+    <h1>What’s your experience level?</h1>
+    <div class="options-row">
+      <div class="card option" data-val="Student"><div class="icon">🎓</div><div>Student</div></div>
+      <div class="card option" data-val="Fresher"><div class="icon">🧑‍💻</div><div>Fresher</div></div>
+      <div class="card option" data-val="Experienced"><div class="icon">💼</div><div>Experienced</div></div>
+    </div>
+    <div class="progress small"><span class="dot active"></span><span class="dot"></span><span class="dot"></span></div>
+    <div class="actions"><button class="btn ghost" onclick="prevStep()">Back</button><button class="btn primary" onclick="toCompany()">Continue</button></div>
+  </main>
+</section>
+
+<!-- ===== Step B: Company type ===== -->
+<section id="step-company" class="page hidden">
+  <header class="topbar"><div class="logo">LiveCareer</div><a class="contact">Contact Us</a></header>
+  <main class="centered">
+    <h1>What kind of companies are you applying to?</h1>
+    <div class="options-row">
+      <div class="card option" data-val="Local"><div class="icon">📍</div><div>Local</div></div>
+      <div class="card option" data-val="Multinational"><div class="icon">🌐</div><div>Multinational</div></div>
+      <div class="card option" data-val="Abroad"><div class="icon">✈️</div><div>Abroad</div></div>
+      <div class="card option" data-val="Other"><div class="icon">➕</div><div>Other</div></div>
+    </div>
+    <div class="progress small"><span class="dot active"></span><span class="dot active"></span><span class="dot"></span></div>
+    <div class="actions"><button class="btn ghost" onclick="backToExperience()">Back</button><button class="btn primary" onclick="toCvOption()">Continue</button></div>
+  </main>
+</section>
+
+<!-- ===== Step C: CV option (create/upload) ===== -->
+<section id="step-cv-option" class="page hidden">
+  <header class="topbar"><div class="logo">LiveCareer</div><a class="contact">Contact Us</a></header>
+  <main class="centered">
+    <h1>How do you want to build your CV?</h1>
+    <div class="options-row">
+      <div class="card option" data-val="new"><div class="icon">➕</div><div>Create a new CV</div><small>We'll help you build step-by-step</small></div>
+      <div class="card option" data-val="upload"><div class="icon">📤</div><div>I already have a CV</div><small>Upload and we'll reformat</small></div>
+    </div>
+    <div class="actions"><button class="btn ghost" onclick="backToCompany()">Back</button><button class="btn primary" onclick="toTemplate()">Continue</button></div>
+  </main>
+</section>
+
+<!-- ===== Step D: Template selection ===== -->
+<section id="step-template" class="page hidden">
+  <header class="topbar"><div class="logo">LiveCareer</div><a class="contact">Contact Us</a></header>
+  <main class="centered">
+    <h1>Choose a template for your CV</h1>
+    <p class="muted">You can always change your mind later</p>
+
+    <div class="template-filters">
+      <div class="filter active" data-color="">All</div>
+      <div class="filter" data-color="green" style="background:#00d87f"></div>
+      <div class="filter" data-color="blue" style="background:#0b66ff"></div>
+      <div class="filter" data-color="gray" style="background:#555"></div>
+    </div>
+
+    <div class="templates-row">
+      <!-- thumbnails; real app would use images -->
+      <div class="template-card" data-template="classic">
+        <div class="thumb classic">Classic</div>
+        <button class="choose" onclick="chooseTemplate('classic')">Choose this template</button>
+      </div>
+
+      <div class="template-card" data-template="modern">
+        <div class="thumb modern">Modern</div>
+        <button class="choose" onclick="chooseTemplate('modern')">Choose this template</button>
+      </div>
+
+      <div class="template-card" data-template="sidebar">
+        <div class="thumb sidebar">Sidebar</div>
+        <button class="choose" onclick="chooseTemplate('sidebar')">Choose this template</button>
+      </div>
+
+      <div class="template-card" data-template="photo">
+        <div class="thumb photo">Photo</div>
+        <button class="choose" onclick="chooseTemplate('photo')">Choose this template</button>
+      </div>
+    </div>
+
+    <div class="actions"><button class="btn ghost" onclick="backToCvOption()">Back</button><button class="btn primary" onclick="skipTemplate()">Skip for now</button></div>
+  </main>
+</section>
+
+<!-- ===== Step E: Contact form with live preview ===== -->
+<section id="step-contact" class="page hidden">
+  <div class="split">
+    <div class="form-panel">
+      <h1>How do you want recruiters to contact you?</h1>
+      <p class="muted">Include your full name and at least email or phone number</p>
+
+      <form id="contactForm" onsubmit="return false;">
+        <!-- Name -->
+        <div class="row">
+          <input id="firstName" placeholder="First name" oninput="updatePreview()" />
+          <input id="lastName" placeholder="Surname" oninput="updatePreview()" />
+        </div>
+
+        <!-- Address & Contact -->
+        <div class="row">
+          <input id="city" placeholder="City" oninput="updatePreview()" />
+          <input id="country" placeholder="Country" oninput="updatePreview()" />
+          <input id="pincode" placeholder="Pin code" oninput="updatePreview()" />
+        </div>
+        <div class="row">
+          <input id="phone" placeholder="+91 11 1234 5677" oninput="updatePreview()" />
+          <input id="email" placeholder="you@example.com" oninput="updatePreview()" />
+        </div>
+
+        <!-- Details -->
+        <div class="row">
+          <input id="summary" placeholder="Summary" oninput="updatePreview()" />
+        </div>
+        <div class="row">
+          <input id="experience" placeholder="Experience" oninput="updatePreview()" />
+        </div>
+        <div class="row">
+          <input id="skills" placeholder="Skills" oninput="updatePreview()" />
+        </div>
+        <div class="row">
+          <input id="projects" placeholder="Projects" oninput="updatePreview()" />
+        </div>
+
+        <div class="actions">
+          <button class="btn ghost" onclick="backToTemplate()">Back</button>
+          <button class="btn primary" onclick="generateResume()">Continue</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="preview-panel">
+      <div id="resume-preview" class="resume-preview">
+        <div id="resume-header" class="resume-header">
+          <h1 id="pv-name">First name Surname</h1>
+          <div id="pv-contact" class="pv-contact">City, Country Pin code | Phone | Email</div>
+        </div>
+        <div class="section"><h3>Summary</h3><p id="pv-summary" class="muted">[Summary will appear here]</p></div>
+        <div class="section"><h3>Experience</h3><p id="pv-experience" class="muted">[Experience will appear here]</p></div>
+        <div class="section"><h3>Skills</h3><p id="pv-skills" class="muted">[Skills will appear here]</p></div>
+        <div class="section"><h3>Projects</h3><p id="pv-projects" class="muted">[Projects will appear here]</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===== Final resume preview / download ===== -->
+<section id="step-result" class="page hidden">
+  <header class="topbar"><div class="logo">LiveCareer</div></header>
+  <main class="centered">
+    <h1>Preview</h1>
+    <div id="resume-template" class="resume-canvas pdf-template">
+  <div class="canvas-header">
+    <h1 id="cv-name">First name Surname</h1>
+    <div id="cv-contact">City, Country Pin code | Phone | Email</div>
+  </div>
+  <hr/>
+  <div><h3>Summary</h3><p id="cv-summary">[Summary placeholder]</p></div>
+  <div><h3>Experience</h3><p id="cv-experience">[Experience placeholder]</p></div>
+  <div><h3>Skills</h3><p id="cv-skills">[Skills placeholder]</p></div>
+  <div><h3>Projects</h3><p id="cv-projects">[Projects placeholder]</p></div>
+</div>
+<!-- Add buttons here -->
+    <div class="actions">
+      <button class="btn ghost" onclick="backToContact()">Back</button>
+      <button class="btn primary" onclick="downloadPDF()">Download as PDF</button>
+    </div>
+  </main>
+</section>
+
+
+<!-- Libraries + script -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
