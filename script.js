@@ -143,3 +143,56 @@ document.addEventListener('DOMContentLoaded', ()=>{
   // show first step after 1s
   setTimeout(showFirstStep, 1000);
 });
+
+const contactPopup = document.getElementById("contactPopup");
+  const openContact = document.getElementById("openContact");
+  const closeContact = document.getElementById("closeContact");
+  const form = document.getElementById("contactForm");
+
+  openContact.addEventListener("click", (e) => {
+    e.preventDefault();
+    contactPopup.style.display = "flex";
+  });
+
+  closeContact.addEventListener("click", () => {
+    contactPopup.style.display = "none";
+  });
+
+  window.addEventListener("click", (e) => {
+    if (e.target === contactPopup) {
+      contactPopup.style.display = "none";
+    }
+  });
+
+  form.addEventListener("submit", function(e) {
+    e.preventDefault();
+    alert("✅ Thank you for contacting us! We’ll respond shortly.");
+    form.reset();
+    contactPopup.style.display = "none";
+  });
+  const loginPopup = document.getElementById("loginPopup");
+  const openLogin = document.getElementById("openLogin");
+  const closeLogin = document.getElementById("closeLogin");
+  const loginForm = document.getElementById("loginForm");
+
+  openLogin.addEventListener("click", (e) => {
+    e.preventDefault();
+    loginPopup.style.display = "flex";
+  });
+
+  closeLogin.addEventListener("click", () => {
+    loginPopup.style.display = "none";
+  });
+
+  window.addEventListener("click", (e) => {
+    if (e.target === loginPopup) {
+      loginPopup.style.display = "none";
+    }
+  });
+
+  loginForm.addEventListener("submit", function(e) {
+    e.preventDefault();
+    alert("✅ Login successful (demo). Connect backend later.");
+    loginForm.reset();
+    loginPopup.style.display = "none";
+  });

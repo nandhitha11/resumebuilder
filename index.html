@@ -12,11 +12,38 @@
   <header class="navbar">
     <div class="logo">LiveCareer</div>
     <nav>
-      <a href="#">Contact us</a>
-      <a href="#">Log in</a>
+       <a href="#" id="openContact">Contact us</a>
+      <a href="#" id="openLogin">Log in</a>
     </nav>
   </header>
+<!-- Contact Us Popup -->
+<div id="contactPopup" class="popup-overlay">
+  <div class="popup-box">
+    <span class="close-btn" id="closeContact">&times;</span>
+    <h2>Contact Us</h2>
+    <p>We’d love to hear from you. Send us a message!</p>
 
+    <form id="contactForm">
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Your Email" required>
+      <textarea placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
+</div>
+<!-- Login Popup -->
+<div id="loginPopup" class="popup-overlay">
+  <div class="popup-box">
+    <span class="close-btn" id="closeLogin">&times;</span>
+    <h2>Log In</h2>
+    <form id="loginForm">
+      <input type="email" placeholder="Your Email" required>
+      <input type="password" placeholder="Your Password" required>
+      <button type="submit">Log In</button>
+      <p class="signup-text">Don’t have an account? <a href="#">Sign up</a></p>
+    </form>
+  </div>
+</div>
   <!-- Hero Section -->
   <section class="hero">
     <div class="hero-text">
@@ -256,6 +283,7 @@
 
     <div class="footer-curve"></div>
   </footer>
-
+  
+<script src="script.js"></script>
 </body>
 </html>
